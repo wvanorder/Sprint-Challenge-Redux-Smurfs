@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import styled from 'styled-components';
 /*
  to wire this component up you're going to need a few things.
  I'll let you do this part on your own. 
@@ -10,6 +11,46 @@ import './App.css';
 import { connect } from 'react-redux';
 
 import { loadSmurfs, addSmurf, deleteSmurf, updateSmurf } from '../actions';
+
+const Smurfz = styled.div`
+display: flex;
+flex-flow: row wrap;
+justify-content: space-evenly;
+`;
+
+const Smurfy = styled.div`
+display: flex,
+flex-flow: column nowrap;
+width: 400px;
+height: 300px;
+border-radius: 200px;
+background-color: beige;
+margin: 20px 20px;
+  h2{
+    font-size: 56px;
+    margin-top: 15px;
+    padding: 0px;
+  }
+  h4{
+    font-size: 26px;
+    margin-top: -20px;
+  }
+  h6{
+    font-size: 18px;
+    margin-top: -30px;
+  }
+  button{
+  }
+`
+const Buttonz = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  button{
+    border-radius: 4px;
+    border-color: beige;
+  }
+`
 
 
 class App extends Component {
@@ -80,17 +121,21 @@ class App extends Component {
     return (
       <div className="App">
         <h1>SMURFS! 2.0 W/ Redux</h1>
+        <Smurfz>
         {this.props.smurfs.map(smurf => {
           return(
-            <div className='smurf-card'>
+            <Smurfy>
               <h2>{smurf.name}</h2>
-              <h4>{smurf.age}</h4>
+              <h4>{smurf.age} smurf years old</h4>
               <h6>{smurf.height}cm  short</h6>
-              <button onClick={() => this.deleteSmurf(smurf.id)}>Smite {smurf.name}</button>
-              <button onClick={() => this.updateSmurf(smurf, smurf.id)}>Update {smurf.name}'s information</button>
-            </div>
+              <Buttonz>
+                <button onClick={() => this.deleteSmurf(smurf.id)}>Smite {smurf.name}</button>
+                <button onClick={() => this.updateSmurf(smurf, smurf.id)}>Update {smurf.name}'s information</button>
+              </Buttonz>
+            </Smurfy>
           )
         })}
+        </Smurfz>
         <form>
           <input placeholder='smurf name'
           onChange={this.handleChange}
